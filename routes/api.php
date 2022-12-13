@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Circle\CircleCreateController;
+use App\Http\Controllers\Api\V1\Circle\CircleDeleteController;
+use App\Http\Controllers\Api\V1\Circle\CircleGetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1', 'as' => 'auth.', 'middleware' => ['auth:sanctum']], function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
+    });
+
+    Route::group(['prefix' => '/circle', 'as' => 'circle.'], function (){
+        Route::post('', CircleCreateController::class)->name('create');
+        Route::get('/{id}', CircleGetController::class)->name('getId');
+        Route::delete('/{id}', CircleDeleteController::class)->name('delete');
     });
 });
