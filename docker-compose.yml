@@ -16,6 +16,7 @@ services:
       dockerfile: ./docker/php/Dockerfile
     volumes:
       - ./:/var/www
+      - vendor-volume:/var/www/vendor
     depends_on:
       - db
       - redis
@@ -51,3 +52,5 @@ services:
     command: -c "/opt/bin/minio server /export --address :9000 --console-address :9001"
     volumes:
       - ./docker/minio/data:/export
+volumes:
+  vendor-volume:
