@@ -3,6 +3,9 @@
 use App\Http\Controllers\Api\V1\Circle\CircleCreateController;
 use App\Http\Controllers\Api\V1\Circle\CircleDeleteController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetController;
+use App\Http\Controllers\Api\V1\Event\EventCreateController;
+use App\Http\Controllers\Api\V1\Event\EventDeleteController;
+use App\Http\Controllers\Api\V1\Event\EventGetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +33,11 @@ Route::group(['prefix' => 'v1', 'as' => 'auth.', 'middleware' => ['auth:sanctum'
         Route::post('', CircleCreateController::class)->name('create');
         Route::get('/{id}', CircleGetController::class)->name('getId');
         Route::delete('/{id}', CircleDeleteController::class)->name('delete');
+    });
+
+    Route::group(['prefix' => '/event', 'as' => 'event.'], function (){
+        Route::post('', EventCreateController::class)->name('create');
+        Route::get('/{id}', EventGetController::class)->name('getId');
+        Route::delete('/{id}', EventDeleteController::class)->name('delete');
     });
 });
