@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\V1\Circle\CircleCreateController;
 use App\Http\Controllers\Api\V1\Circle\CircleDeleteController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetController;
+use App\Http\Controllers\Api\V1\Event\EventCircleCreateController;
+use App\Http\Controllers\Api\V1\Event\EventCircleGetController;
 use App\Http\Controllers\Api\V1\Event\EventCreateController;
 use App\Http\Controllers\Api\V1\Event\EventDeleteController;
 use App\Http\Controllers\Api\V1\Event\EventGetController;
@@ -31,13 +33,27 @@ Route::group(['prefix' => 'v1', 'as' => 'auth.', 'middleware' => ['auth:sanctum'
 
     Route::group(['prefix' => '/circle', 'as' => 'circle.'], function (){
         Route::post('', CircleCreateController::class)->name('create');
-        Route::get('/{id}', CircleGetController::class)->name('getId');
         Route::delete('/{id}', CircleDeleteController::class)->name('delete');
     });
 
     Route::group(['prefix' => '/event', 'as' => 'event.'], function (){
         Route::post('', EventCreateController::class)->name('create');
-        Route::get('/{id}', EventGetController::class)->name('getId');
         Route::delete('/{id}', EventDeleteController::class)->name('delete');
+
+        Route::group(['as' => 'event.circle.'], function () {
+            Route::post('/{id}/circle', EventCircleCreateController::class)->name('create');
+        });
+    });
+});
+
+// 認証不要
+Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
+    Route::group(['prefix' => '/circle', 'as' => 'circle.'], function (){
+        Route::get('/{id}', CircleGetController::class)->name('get');
+    });
+
+    Route::group(['prefix' => '/event', 'as' => 'event.'], function (){
+        Route::get('/{id}', EventGetController::class)->name('get');
+        Route::get('/{id}/circle', EventCircleGetController::class)->name('circle.get');
     });
 });

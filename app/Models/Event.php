@@ -30,4 +30,14 @@ class Event extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function evnetCircle(): HasMany
+    {
+        return $this->hasMany(EventCircle::class);
+    }
+
+    public function getEvnetCircle()
+    {
+        return $this->evnetCircle()->getResults();
+    }
 }
