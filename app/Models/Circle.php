@@ -28,4 +28,14 @@ class Circle extends Model
     {
         return $this->links()->getResults();
     }
+
+    public function evnetCircle(): HasMany
+    {
+        return $this->hasMany(EventCircle::class);
+    }
+
+    public function getEvnetCircle()
+    {
+        return $this->evnetCircle()->getResults();
+    }
 }

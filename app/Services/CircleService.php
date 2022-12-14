@@ -44,7 +44,7 @@ class CircleService
         return $response;
     }
 
-    private function makeCircleResponse(Circle $circle): array
+    public function makeCircleResponse(Circle $circle): array
     {
         return [
             'id' => $circle->id,
