@@ -46,6 +46,10 @@ class CircleRepository
             $query->where('id', '=', $params['id']);
         }
 
+        if (!empty($params['circle_ms_id'])) {
+            $query->where('circle_ms_id', '=', $params['circle_ms_id']);
+        }
+
         if (!empty($params['ids']) && is_array($params['ids'])) {
             $query->whereIn('id', $params['ids']);
         }
@@ -62,6 +66,11 @@ class CircleRepository
     {
         return $this->search(['ids' => $ids])->get();
 
+    }
+
+    public function findByCirclMsId(int $id): ?Circle
+    {
+        return $this->search(['circle_ms_id' => $id])->first();
     }
 
     /**
