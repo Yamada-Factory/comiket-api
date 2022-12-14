@@ -26,6 +26,13 @@ class CircleCreateController extends Controller
     {
         $params = $request->all();
 
+        $circle = $this->circleRepository->findByCirclMsId((int) $params['circle_ms_id']);
+        if ($circle) {
+            return $this->success([
+                'error' => 'circle_ms_id=' . $params['circle_ms_id'] . 'is alredy registerd.'
+            ], 409);
+        }
+
         $circle = new Circle([
             'name' => $params['name'],
             'author' => $params['author'],
