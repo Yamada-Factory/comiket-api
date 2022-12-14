@@ -27,32 +27,32 @@ class CircleController extends Controller
         // // return $circles;
 
 
-        $circle = new Circle([
-            'name' => 'テストサークル_1',
-            'author' => 'テスト作家',
-            'circle_ms_id' => 13013043
-        ]);
+        // $circle = new Circle([
+        //     'name' => 'テストサークル_1',
+        //     'author' => 'テスト作家',
+        //     'circle_ms_id' => 13013043
+        // ]);
 
-        $circleLinks = [
-            'twitter_1' => 'https://twitter.com/xxxxxx1',
-            'twitter_2' => 'https://twitter.com/xxxxxx2',
-            'twitter_3' => 'https://twitter.com/xxxxxx3',
-            'pixiv_1' => 'https://pixiv.com/xxxxxx1',
-            'website_1' => 'https://example.com/',
-        ];
+        // $circleLinks = [
+        //     'twitter_1' => 'https://twitter.com/xxxxxx1',
+        //     'twitter_2' => 'https://twitter.com/xxxxxx2',
+        //     'twitter_3' => 'https://twitter.com/xxxxxx3',
+        //     'pixiv_1' => 'https://pixiv.com/xxxxxx1',
+        //     'website_1' => 'https://example.com/',
+        // ];
 
-        $circleLinkModelArray = [];
+        // $circleLinkModelArray = [];
 
-        foreach ($circleLinks as $type => $url) {
-            $circleLinkModelArray[] = new CircleLink([
-                // 'circle_id' => $circle->id,
-                'type' => $type,
-                'url' => $url,
-            ]);
-        }
+        // foreach ($circleLinks as $type => $url) {
+        //     $circleLinkModelArray[] = new CircleLink([
+        //         // 'circle_id' => $circle->id,
+        //         'type' => $type,
+        //         'url' => $url,
+        //     ]);
+        // }
 
-        $circle = $this->circleRepository->save($circle);
-        $circle = $this->circleRepository->saveLinks($circle, $circleLinkModelArray);
+        // $circle = $this->circleRepository->save($circle);
+        // $circle = $this->circleRepository->saveLinks($circle, $circleLinkModelArray);
 
         // return $circle->getLinks();
 
