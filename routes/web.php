@@ -27,5 +27,10 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/admin/circle', [CircleController::class, 'index']);
+    Route::group(['prefix' => '/admin', 'as' => 'admin.'], function (){
+        Route::group(['prefix' => '/circle', 'as' => 'circle.'], function (){
+            Route::get('/', [CircleController::class, 'index'])->name('index');
+            Route::get('/{id}', [CircleController::class, 'show'])->name('show');
+        });
+    });
 });
