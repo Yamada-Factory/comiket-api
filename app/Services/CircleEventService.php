@@ -62,7 +62,7 @@ class CircleEventService
             'space' => $circleEventInfo['space'],
             'genre' => $circleEventInfo['genre'],
             'description' => $circleEventInfo['description'],
-            'iamges' => $circleEventInfo['images'],
+            'images' => $circleEventInfo['images'],
             'other' => $circleEventInfo['other'],
         ];
     }

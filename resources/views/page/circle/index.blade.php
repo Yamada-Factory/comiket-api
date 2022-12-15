@@ -26,6 +26,9 @@
                             <th scope="col" class="py-3 px-6">
                                 SNS
                             </th>
+                            <th scope="col" class="py-3 px-6">
+                                操作
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +50,10 @@
                                     @foreach($circle['links'] as $link)
                                         <a href="{{$link['url']}}">{{ $link['type'] }}</a>
                                     @endforeach
+                                </td>
+                                <td class="py-4 px-6">
+                                    <a type="button" class="btn btn-outline-primary btn-sm" href="{{ route('admin.circle.show', ['id' => $circle['id']]) }}" target="_blank"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         @endforeach
