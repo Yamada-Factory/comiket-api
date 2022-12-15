@@ -28,4 +28,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/admin/circle', [CircleController::class, 'index']);
+    Route::get('/admin/circle/{id}', [CircleController::class, 'show']);
 });

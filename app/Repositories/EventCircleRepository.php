@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\Event;
 use App\Models\EventCircle;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -40,6 +39,14 @@ class EventRepository
 
         if (!empty($params['id'])) {
             $query->where('id', '=', $params['id']);
+        }
+
+        if (!empty($params['event_id'])) {
+            $query->where('id', '=', $params['event_id']);
+        }
+
+        if (!empty($params['circle_id'])) {
+            $query->where('id', '=', $params['circle_id']);
         }
 
         return $query;
