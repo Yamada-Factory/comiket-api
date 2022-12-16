@@ -86,12 +86,29 @@
                                                 <div class="d-flex justify-content-start align-content-center flex-wrap">
                                                     <style>
                                                         .circle-media {
+                                                            min-width: 200px;
                                                             max-width: 200px;
                                                             margin: 5px 5px 5px 5px;
                                                         }
                                                     </style>
+                                                        {{-- $images = array_filter($event['participation']['images'], fn($image) => is_string($image) && !str_starts_with($image, 'http')); --}}
                                                     @php
-                                                        $images = array_filter($event['participation']['images'], fn($image) => is_string($image) && !str_starts_with($image, 'http'));
+
+                                                        $images = [];
+                                                        foreach($event['participation']['images'] as $image) {
+                                                            if (is_string($image) && !str_starts_with($image, 'http')) {
+                                                                $images[] = $image;
+
+                                                                continue;
+                                                            } elseif (is_array($image)) {
+                                                                if (array_key_exists('サムネイル画像', $image)) {
+                                                                    $images[] = $image['サムネイル画像'];
+                                                                }
+                                                                if (array_key_exists('既定表示画像', $image)) {
+                                                                    $images[] = $image['既定表示画像'];
+                                                                }
+                                                            }
+                                                        }
                                                     @endphp
                                                     @foreach($images as $index => $image)
                                                         @php $image = 'https://s3-yamada-01.misosiru.men/comiket-app-dev' . $image; @endphp
