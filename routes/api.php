@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCreateController;
+use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteGetController;
+use App\Http\Controllers\Api\V1\Auth\User\UserGetController;
 use App\Http\Controllers\Api\V1\Circle\CircleCreateController;
 use App\Http\Controllers\Api\V1\Circle\CircleDeleteController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetController;
@@ -48,6 +51,18 @@ Route::group(['prefix' => 'v1', 'as' => 'auth.', 'middleware' => ['auth:sanctum'
 });
 
 Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
+    // 認証必須
+    Route::group(['prefix' => '/auth', 'as' => 'auth.', 'middleware' => ['auth:sanctum']], function () {
+        Route::group(['prefix' => '/user', 'as' => 'user.'], function () {
+            Route::get('', UserGetController::class)->name('info');
+
+            Route::group(['prefix' => '/favorite', 'as' => 'favorite.'], function () {
+                Route::get('', UserFavoriteGetController::class)->name('index');
+                Route::post('', UserFavoriteCreateController::class)->name('create');
+            });
+        });
+    });
+
     Route::group(['prefix' => '/circle', 'as' => 'circle.'], function (){
         Route::get('/{id}', CircleGetController::class)->name('get');
     });
