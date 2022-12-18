@@ -8,9 +8,9 @@ use App\Models\EventCircle;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class EventRepository
+class EventCircleRepository
 {
-    const DEFAULT_LIMIT = 10;
+    const DEFAULT_LIMIT = 50;
 
     public function __construct(private EventCircle $model)
     {
@@ -42,12 +42,17 @@ class EventRepository
         }
 
         if (!empty($params['event_id'])) {
-            $query->where('id', '=', $params['event_id']);
+            $query->where('event_id', '=', $params['event_id']);
         }
 
         if (!empty($params['circle_id'])) {
             $query->where('id', '=', $params['circle_id']);
         }
+
+        $page = !empty($params['page']) ? (int)$params['page'] : 1;
+        $limit = !empty($params['limit']) ? (int)$params['limit'] : self::DEFAULT_LIMIT;
+
+        $query->paginate($limit, ['*'], 'page', $page);
 
         return $query;
     }
@@ -55,6 +60,11 @@ class EventRepository
     public function findById(int $id): ?EventCircle
     {
         return $this->search(['id' => $id])->first();
+    }
+
+    public function getByEventId(int $id): Collection
+    {
+        return $this->search(['event_id' => $id])->get();
     }
 
     /**
