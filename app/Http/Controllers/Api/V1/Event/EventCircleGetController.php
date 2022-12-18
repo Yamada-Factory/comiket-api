@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Event;
 use App\Http\Controllers\Controller;
 use App\Models\Circle;
 use App\Repositories\CircleRepository;
+use App\Repositories\EventCircleRepository;
 use App\Repositories\EventRepository;
 use App\Services\CircleService;
 use App\Services\EventService;
@@ -12,8 +13,13 @@ use Illuminate\Http\Request;
 
 class EventCircleGetController extends Controller
 {
-    public function __construct(private EventRepository $eventRepository, private EventService $eventService, private CircleRepository $circleRepository, private CircleService $circleService)
-    {
+    public function __construct(
+        private EventRepository $eventRepository,
+        private EventService $eventService,
+        private CircleRepository $circleRepository,
+        private CircleService $circleService,
+        private EventCircleRepository $eventCircleRepository
+    ) {
     }
 
     /**
@@ -31,7 +37,8 @@ class EventCircleGetController extends Controller
         }
 
         $circleIds = [];
-        foreach ($event->getEvnetCircle() as $circle) {
+        $eventCircles = $this->eventCircleRepository->getByEventId($event->id);
+        foreach ($eventCircles as $circle) {
             $circleIds[] = $circle['circle_id'];
         }
 
