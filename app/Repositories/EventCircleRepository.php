@@ -62,9 +62,9 @@ class EventCircleRepository
         return $this->search(['id' => $id])->first();
     }
 
-    public function getByEventId(int $id): Collection
+    public function getByEventId(array $params = []): Collection
     {
-        return $this->search(['event_id' => $id])->get();
+        return $this->search($params)->get();
     }
 
     /**
