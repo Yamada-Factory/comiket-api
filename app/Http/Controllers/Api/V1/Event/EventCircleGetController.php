@@ -37,7 +37,10 @@ class EventCircleGetController extends Controller
         }
 
         $circleIds = [];
-        $eventCircles = $this->eventCircleRepository->getByEventId($event->id);
+        $params = $request->all();
+        $params['event_id'] = $event->id;
+
+        $eventCircles = $this->eventCircleRepository->getByEventId($params);
         foreach ($eventCircles as $circle) {
             $circleIds[] = $circle['circle_id'];
         }
