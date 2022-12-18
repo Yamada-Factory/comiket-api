@@ -23,7 +23,6 @@ class EventGetListController extends Controller
     {
         $events = $this->repository->all();
 
-        $response = [];
         $response = $events->map(
             fn($event) => $this->service->makeEventResponse($event)
         );
