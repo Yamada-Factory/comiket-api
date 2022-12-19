@@ -34,4 +34,14 @@ class UserFavoriteCircle extends Model
     {
         return $this->circle()->latest()->first();
     }
+
+    public function favoriteEventCircle(): HasMany
+    {
+        return $this->hasMany(UserFavoriteEventCircle::class, 'favorite_circle_id');
+    }
+
+    public function getUserFavoriteEventCircle(): Collection
+    {
+        return $this->favoriteEventCircle()->getResults();
+    }
 }
