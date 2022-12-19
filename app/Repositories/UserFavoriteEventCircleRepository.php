@@ -8,6 +8,7 @@ use App\Models\UserFavoriteCircle;
 use App\Models\UserFavoriteEventCircle;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class UserFavoriteEventCircleRepository
 {
@@ -54,6 +55,10 @@ class UserFavoriteEventCircleRepository
             $query->orderBy('priority', $params['sort_by_priority']);
         }
 
+        if ($params['is_auth_user'] ?? false) {
+            $userId = Auth::user()->id;
+            $query->where('user_id', '=', $userId);
+        }
 
         return $query;
     }

@@ -23,7 +23,7 @@ class UserFavotiteEventCircleResource extends JsonResource
         $events = $this->event;
 
         $circle = (new CircleResource($favoriteCircle))->toArray($request);
-        $circle['event'] = $events->map(function ($event) use ($request) {
+        $circleEvents = $events->map(function ($event) use ($request) {
             /** @var UserFavoriteEventCircle $event */
             $eventInfo = (new EventResource($event->getEvent()))->toArray($request);
 
@@ -33,6 +33,6 @@ class UserFavotiteEventCircleResource extends JsonResource
             return $eventInfo;
         });
 
-        return $circle;
+        return array_merge($circle, $circleEvents->toArray()[0] ?? []);
     }
 }

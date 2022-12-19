@@ -38,13 +38,15 @@ class UserFavoriteEventCircleService
 
         $favoriteCircleCollection = $this->userFavoriteCircleRepository->search($params)->get();
 
-        return $favoriteCircleCollection->map(function ($favoriteCircle) use ($eventId) {
+        $favoriteCircleAddEventsCollection = $favoriteCircleCollection->map(function ($favoriteCircle) use ($eventId) {
             /** @var UserFavoriteCircle $favoriteCircle */
             $events = $favoriteCircle->getUserFavoriteEventCircle();
             $event = $events->filter(fn($event) => $event->event_id === $eventId);
             $favoriteCircle->event = $event;
             return $favoriteCircle;
         });
+
+        return $favoriteCircleAddEventsCollection->filter(fn($eventCircle) => $eventCircle->event->isNotEmpty());
     }
 
     /**
