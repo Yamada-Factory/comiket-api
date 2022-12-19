@@ -39,7 +39,7 @@ class UserFavoriteCreateController extends Controller
         $userFavoriteCircle = new UserFavoriteCircle([
             'user_id' => $user->id,
             'circle_id' => $params['circle_id'],
-            'color' => $params['color'],
+            'color' => $params['color'] ?? UserFavoriteCircle::DEFAULT_COLOR,
         ]);
 
         $userFavoriteCircle = $this->repository->save($userFavoriteCircle);

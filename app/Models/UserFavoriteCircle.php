@@ -14,6 +14,8 @@ class UserFavoriteCircle extends Model
 
     protected $table = 'user_favorite_circle';
 
+    public const DEFAULT_COLOR = '#000000';
+
     protected $fillable = [
         'user_id',
         'circle_id',
