@@ -63,7 +63,7 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
                 Route::post('', UserFavoriteCreateController::class)->name('create');
 
                 Route::group(['prefix' => '/event/{id}', 'as' => 'event.'], function () {
-                    // Route::get('', UserFavoriteCircleEventGetController::class)->name('index');
+                    Route::get('', UserFavoriteCircleEventGetController::class)->name('index');
                 });
             });
         });

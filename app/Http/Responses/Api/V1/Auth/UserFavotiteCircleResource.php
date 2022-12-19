@@ -2,21 +2,25 @@
 
 namespace App\Http\Responses\Api\V1\Auth;
 
-// use App\Traits\ResourceFormatter;
+use App\Traits\ResponseFormatTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserFavotiteCircleResource extends JsonResource
 {
+    use ResponseFormatTrait;
+
     public function toArray($request): array
     {
-        $cielc = $this->getCircle();
+        $circle = $this->getCircle();
 
         return [
-            'id' => $cielc->id,
-            'name' => $cielc->name,
-            'author' => $cielc->author,
+            'id' => $circle->id,
+            'name' => $circle->name,
+            'author' => $circle->author,
+            'links' => $circle->getLinks(),
             'color' => $this->color,
+            'event' => $circle->getEvnetCircle(),
         ];
     }
 }

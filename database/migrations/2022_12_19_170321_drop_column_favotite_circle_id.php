@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
         Schema::table('user_favorite_event_circle', function (Blueprint $table) {
-            $table->unsignedBigInteger('event_id')->nullable()->after('favotite_circle_id')->comment('イベントID');
+            $table->dropForeign('user_favorite_event_circle_favotite_circle_id_foreign');
+            $table->dropColumn('favotite_circle_id');
+            $table->unsignedBigInteger('favorite_circle_id')->nullable()->after('user_id')->comment('お気に入りサークル_ID');
 
-            $table->foreign('event_id')->references('id')->on('event')->cascadeOnDelete();
+            $table->foreign('favorite_circle_id')->references('id')->on('user_favorite_circle')->cascadeOnDelete();
         });
         Schema::enableForeignKeyConstraints();
     }
@@ -31,8 +33,11 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
         Schema::table('user_favorite_event_circle', function (Blueprint $table) {
-            $table->dropForeign('user_favorite_event_circle_event_id_foreign');
-            $table->dropColumn('event_id');
+            $table->unsignedBigInteger('favotite_circle_id')->comment('お気に入りサークル_ID');
+            $table->dropForeign('user_favorite_event_circle_favorite_circle_id_foreign');
+            $table->dropColumn('favorite_circle_id');
+
+            $table->foreign('favotite_circle_id')->references('id')->on('user_favorite_circle')->cascadeOnDelete();
         });
         Schema::enableForeignKeyConstraints();
     }

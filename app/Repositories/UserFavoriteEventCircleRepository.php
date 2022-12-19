@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\UserFavoriteCircle;
+use App\Models\UserFavoriteEventCircle;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class UserFavoriteCircleRepository
+class UserFavoriteEventCircleRepository
 {
-    const DEFAULT_LIMIT = 10;
+    const DEFAULT_LIMIT = 50;
 
-    public function __construct(private UserFavoriteCircle $model)
+    public function __construct(private UserFavoriteEventCircle $model)
     {
     }
 
@@ -37,33 +38,43 @@ class UserFavoriteCircleRepository
             $query->where('id', '=', $params['id']);
         }
 
-        if (!empty($params['circle_id'])) {
-            $query->where('circle_id', '=', $params['circle_id']);
+        if (!empty($params['favotite_circle_id'])) {
+            $query->where('favotite_circle_id', '=', $params['favotite_circle_id']);
         }
 
         if (!empty($params['user_id'])) {
             $query->where('user_id', '=', $params['user_id']);
         }
-        $page = !empty($params['page']) ? (int)$params['page'] : 1;
-        $limit = !empty($params['limit']) ? (int)$params['limit'] : self::DEFAULT_LIMIT;
 
-        $query->paginate($limit, ['*'], 'page', $page);
+        if (!empty($params['event_id'])) {
+            $query->where('event_id', '=', $params['event_id']);
+        }
+
+        if (!empty($params['sort_by_priority'])) {
+            $query->orderBy('priority', $params['sort_by_priority']);
+        }
+
 
         return $query;
     }
 
-    public function findById(int $id): ?UserFavoriteCircle
+    public function findById(int $id): ?UserFavoriteEventCircle
     {
         return $this->search(['id' => $id])->first();
+    }
+
+    public function getByUserId(array $params = []): Collection
+    {
+        return $this->search($params)->get();
     }
 
     /**
      * 保存
      *
-     * @param UserFavoriteCircle $model
-     * @return UserFavoriteCircle
+     * @param UserFavoriteEventCircle $model
+     * @return UserFavoriteEventCircle
      */
-    public function save(UserFavoriteCircle $model): UserFavoriteCircle
+    public function save(UserFavoriteEventCircle $model): UserFavoriteEventCircle
     {
         $model->save();
 
