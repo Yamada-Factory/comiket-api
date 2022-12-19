@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCircleEventGetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCreateController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteGetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserGetController;
 use App\Http\Controllers\Api\V1\Circle\CircleCreateController;
 use App\Http\Controllers\Api\V1\Circle\CircleDeleteController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetController;
+use App\Http\Controllers\Api\V1\Circle\CircleGetListController;
 use App\Http\Controllers\Api\V1\Event\EventCircleCreateController;
 use App\Http\Controllers\Api\V1\Event\EventCircleGetController;
 use App\Http\Controllers\Api\V1\Event\EventCreateController;
@@ -59,11 +61,16 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
             Route::group(['prefix' => '/favorite', 'as' => 'favorite.'], function () {
                 Route::get('', UserFavoriteGetController::class)->name('index');
                 Route::post('', UserFavoriteCreateController::class)->name('create');
+
+                Route::group(['prefix' => '/event/{id}', 'as' => 'event.'], function () {
+                    Route::get('', UserFavoriteCircleEventGetController::class)->name('index');
+                });
             });
         });
     });
 
     Route::group(['prefix' => '/circle', 'as' => 'circle.'], function (){
+        Route::get('', CircleGetListController::class)->name('list');
         Route::get('/{id}', CircleGetController::class)->name('get');
     });
 
