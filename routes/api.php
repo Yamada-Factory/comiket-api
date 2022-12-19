@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCircleEventCreateController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCircleEventGetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCreateController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteGetController;
@@ -64,6 +65,7 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
 
                 Route::group(['prefix' => '/event/{id}', 'as' => 'event.'], function () {
                     Route::get('', UserFavoriteCircleEventGetController::class)->name('index');
+                    Route::post('', UserFavoriteCircleEventCreateController::class)->name('create');
                 });
             });
         });
