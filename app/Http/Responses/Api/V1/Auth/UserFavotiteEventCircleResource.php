@@ -23,6 +23,8 @@ class UserFavotiteEventCircleResource extends JsonResource
         $events = $this->event;
 
         $circle = (new CircleResource($favoriteCircle))->toArray($request);
+        $circle['circle_id'] = $circle['id'];
+
         $circleEvents = $events->map(function ($event) use ($request) {
             /** @var UserFavoriteEventCircle $event */
             $eventInfo = (new EventResource($event->getEvent()))->toArray($request);
