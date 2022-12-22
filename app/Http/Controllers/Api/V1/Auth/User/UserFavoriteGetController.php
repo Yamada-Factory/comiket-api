@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api\V1\Auth\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Responses\Api\V1\Auth\UserFavotiteCircleResource;
+use App\Http\Responses\Api\V1\Auth\UserFavotiteCircleResourceItem;
 use App\Repositories\UserFavoriteCircleRepository;
+use App\Services\UserFavoriteEventCircleService;
 use Illuminate\Http\Request;
 
 class UserFavoriteGetController extends Controller
 {
-    public function __construct(private UserFavoriteCircleRepository $userFavoriteCircleRepository)
+    public function __construct(private UserFavoriteCircleRepository $userFavoriteCircleRepository, private UserFavoriteEventCircleService $userFavoriteEventCircleService)
     {
     }
 
@@ -28,8 +29,8 @@ class UserFavoriteGetController extends Controller
             'circle_id' => $id,
         ];
 
-        $userFavoriteCircles = $this->userFavoriteCircleRepository->search($params)->latest()->first();
+        $events = $this->userFavoriteEventCircleService->getEventCirlces($user, null, $params)->first();
 
-        return $this->success((new UserFavotiteCircleResource($userFavoriteCircles))->toArray($request), 200);
+        return (new UserFavotiteCircleResourceItem($events))->toArray($request);
     }
 }
