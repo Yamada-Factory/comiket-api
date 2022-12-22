@@ -3,9 +3,8 @@
 namespace App\Http\Responses\Api\V1\Auth;
 
 use App\Http\Responses\Api\V1\Circle\CircleResource;
-use App\Http\Responses\Api\V1\Event\EventCollection;
 use App\Http\Responses\Api\V1\Event\EventResource;
-use App\Models\UserFavoriteCircle;
+use App\Models\Circle;
 use App\Models\UserFavoriteEventCircle;
 use App\Traits\ResponseFormatTrait;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,7 +27,12 @@ class UserFavotiteCircleResourceItem extends JsonResource
 
         $circleEvents = $events->map(function ($event) use ($request) {
             /** @var UserFavoriteEventCircle $event */
-            $eventInfo = (new EventResource($event->getEvent()))->toArray($request);
+            $eventModel = $event->getEvent();
+            $eventInfo = (new EventResource($eventModel))->toArray($request);
+
+            /** @var Circle $circleModel */
+            $circleModel = $event->circle()->getResults();
+            $eventInfo['info'] = $circleModel->evnetCircle()->where('event_id', '=', $eventModel->id)->first()->toArray();
 
             $eventInfo['priority'] = $event->priority;
             $eventInfo['e-commerce_flag'] = $event['e-commerce_flag'];
