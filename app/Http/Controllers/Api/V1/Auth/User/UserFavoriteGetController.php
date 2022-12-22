@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Auth\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Responses\Api\V1\Auth\UserFavotiteCircleCollection;
+use App\Http\Responses\Api\V1\Auth\UserFavotiteCircleResource;
 use App\Repositories\UserFavoriteCircleRepository;
 use Illuminate\Http\Request;
 
@@ -16,17 +16,20 @@ class UserFavoriteGetController extends Controller
     /**
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, int $id)
     {
         $user = $request->user();
 
-        $queryParams = array_filter([
+        $params = [
             'user_id' => $user->id,
-        ]);
-        $userFavoriteCircles = $this->userFavoriteCircleRepository->search($queryParams)->get();
+            'circle_id' => $id,
+        ];
 
-        return $this->success((new UserFavotiteCircleCollection($userFavoriteCircles))->toArray($request), 200);
+        $userFavoriteCircles = $this->userFavoriteCircleRepository->search($params)->latest()->first();
+
+        return $this->success((new UserFavotiteCircleResource($userFavoriteCircles))->toArray($request), 200);
     }
 }

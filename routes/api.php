@@ -62,7 +62,7 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
 
             Route::group(['prefix' => '/favorite', 'as' => 'favorite.'], function () {
                 Route::get('', UserFavoriteListController::class)->name('list');
-                // Route::get('{id}', UserFavoriteGetController::class)->name('index');
+                Route::get('{id}', UserFavoriteGetController::class)->name('index');
                 Route::post('', UserFavoriteCreateController::class)->name('create');
 
                 Route::group(['prefix' => '/event/{id}', 'as' => 'event.'], function () {
