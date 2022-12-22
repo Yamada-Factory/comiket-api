@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class UserFavoriteEventCircle extends Model
 {
@@ -49,5 +48,10 @@ class UserFavoriteEventCircle extends Model
     public function getUserInfo(): ?User
     {
         return $this->user()->getResults();
+    }
+
+    public function circle(): HasOneThrough
+    {
+        return $this->HasOneThrough(Circle::class, UserFavoriteCircle::class, 'id', 'id', 'favorite_circle_id', 'circle_id');
     }
 }
