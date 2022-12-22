@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCircleEventCreateControlle
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCircleEventGetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCreateController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteGetController;
+use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteListController;
 use App\Http\Controllers\Api\V1\Auth\User\UserGetController;
 use App\Http\Controllers\Api\V1\Circle\CircleCreateController;
 use App\Http\Controllers\Api\V1\Circle\CircleDeleteController;
@@ -60,7 +61,8 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
             Route::get('', UserGetController::class)->name('info');
 
             Route::group(['prefix' => '/favorite', 'as' => 'favorite.'], function () {
-                Route::get('', UserFavoriteGetController::class)->name('index');
+                Route::get('', UserFavoriteListController::class)->name('list');
+                // Route::get('{id}', UserFavoriteGetController::class)->name('index');
                 Route::post('', UserFavoriteCreateController::class)->name('create');
 
                 Route::group(['prefix' => '/event/{id}', 'as' => 'event.'], function () {
