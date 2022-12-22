@@ -51,6 +51,7 @@ class CircleService
             'circle_ms_id' => $circle->circle_ms_id,
             'name' => $circle->name,
             'author' => $circle->author,
+            'event' => $circle->getEvnetCircle()->toArray(),
             'links' => $this->makeCircleLinkArray($circle),
             'created_at' => $this->formatDateTime($circle->created_at),
             'updated_at' => $this->formatDateTime($circle->updated_at),
