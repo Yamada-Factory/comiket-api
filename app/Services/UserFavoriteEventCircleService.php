@@ -33,7 +33,7 @@ class UserFavoriteEventCircleService
         return $this->makeCircleResponse($circle);
     }
 
-    public function getEventCirlces(User $user, int $eventId, array $params = [])
+    public function getEventCirlces(User $user, int $eventId = null, array $params = [])
     {
         $params['user_id'] = $user->id;
 
@@ -42,7 +42,10 @@ class UserFavoriteEventCircleService
         $favoriteCircleAddEventsCollection = $favoriteCircleCollection->map(function ($favoriteCircle) use ($eventId) {
             /** @var UserFavoriteCircle $favoriteCircle */
             $events = $favoriteCircle->getUserFavoriteEventCircle();
-            $event = $events->filter(fn($event) => $event->event_id === $eventId);
+            $event = $events;
+            if (!is_null($eventId)) {
+                $event = $events->filter(fn($event) => $event->event_id === $eventId);
+            }
             $favoriteCircle->event = $event;
             return $favoriteCircle;
         });
