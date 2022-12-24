@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\Circle\CircleGetController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetListController;
 use App\Http\Controllers\Api\V1\Event\EventCircleCreateController;
 use App\Http\Controllers\Api\V1\Event\EventCircleGetController;
+use App\Http\Controllers\Api\V1\Event\EventCircleUpdateController;
 use App\Http\Controllers\Api\V1\Event\EventCreateController;
 use App\Http\Controllers\Api\V1\Event\EventDeleteController;
 use App\Http\Controllers\Api\V1\Event\EventGetController;
@@ -50,6 +51,7 @@ Route::group(['prefix' => 'v1', 'as' => 'auth.', 'middleware' => ['auth:sanctum'
 
         Route::group(['as' => 'event.circle.'], function () {
             Route::post('/{id}/circle', EventCircleCreateController::class)->name('create');
+            Route::put('/{id}/circle', EventCircleUpdateController::class)->name('update');
         });
     });
 });
