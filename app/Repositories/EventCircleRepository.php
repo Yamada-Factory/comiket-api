@@ -87,6 +87,11 @@ class EventCircleRepository
         return $this->search($params)->get();
     }
 
+    public function getGenre(array $params = []): ?Collection
+    {
+        return $this->search($params)->distinct()->select('genre')->get();
+    }
+
     /**
      * 保存
      *
