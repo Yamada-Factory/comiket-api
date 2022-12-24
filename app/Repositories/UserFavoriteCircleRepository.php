@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserFavoriteCircleRepository
 {
-    const DEFAULT_LIMIT = 10;
+    const DEFAULT_LIMIT = 50;
 
     public function __construct(private UserFavoriteCircle $model)
     {
