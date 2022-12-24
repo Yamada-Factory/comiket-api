@@ -87,9 +87,9 @@ class EventCircleRepository
         return $this->search($params)->get();
     }
 
-    public function getGenre(array $params = []): ?Collection
+    public function getDistinctByColumn(string $column, array $params = []): ?Collection
     {
-        return $this->search($params)->distinct()->select('genre')->get();
+        return $this->search($params)->distinct()->select($column)->get();
     }
 
     /**

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\EventCircleRepository;
 use Illuminate\Http\Request;
 
-class EventCircleGenreGetController extends Controller
+class EventCircleGenreOptionsController extends Controller
 {
     public function __construct(private EventCircleRepository $repository)
     {
@@ -21,10 +21,11 @@ class EventCircleGenreGetController extends Controller
     public function __invoke(Request $request)
     {
         $params = $request->all();
-        $genres = $this->repository->getGenre($params);
+        $column = $params['column'];
+        $uniqueCollection = $this->repository->getDistinctByColumn($column, $params);
 
-        $response = $genres->map(function ($genre) {
-            return $genre->genre;
+        $response = $uniqueCollection->map(function ($unique) use ($column) {
+            return $unique->$column;
         });
 
         return $this->success($response->toArray(), 200);
