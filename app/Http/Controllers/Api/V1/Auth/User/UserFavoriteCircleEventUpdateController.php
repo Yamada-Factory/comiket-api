@@ -12,7 +12,7 @@ use App\Repositories\UserFavoriteEventCircleRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class UserFavoriteCircleEventCreateController extends Controller
+class UserFavoriteCircleEventUpdateController extends Controller
 {
     public function __construct(
         private UserFavoriteEventCircleRepository $userFavoriteEventCircleRepository,
@@ -74,20 +74,18 @@ class UserFavoriteCircleEventCreateController extends Controller
             $userFavoriteCircle = $this->userFavoriteCircleRepository->save($userFavoriteCircle);
         }
 
-        /** @var UserFavoriteCircle $userFavoriteCircle */
-        $userFavoriteCircleFillterEventCollection = $userFavoriteCircle->getUserFavoriteEventCircle()->filter(fn($eventCircle) => $eventCircle->event_id === $id);
-        if ($userFavoriteCircleFillterEventCollection->isEmpty()) {
-            return $this->success([
-                'error' => 'circle_id=' . $params['circle_id'] . ' is not registerd.'
-            ], 409);
+        /** @var UserFavoriteEventCircle $userEventFavoriteCircle */
+        $userEventFavoriteCircle = $this->userFavoriteEventCircleRepository->search([
+            'favorite_circle_id' => $userFavoriteCircle->circle_id,
+            'user_id' => $user->id,
+            'event_id' => $id,
+        ])->latest()->first();
+        if (!$userEventFavoriteCircle) {
+            return $this->success([], 404);
         }
 
-        // $this->userFavoriteEventCircleRepository->findById();
-
-        $userEventFavoriteCircle = new UserFavoriteEventCircle([
-            'event_id' => $id,
+        $userEventFavoriteCircle->fill([
             'favorite_circle_id' => $userFavoriteCircle->id,
-            'user_id' => $user->id,
             'priority' => $params['priority'] ?? 0,
             'e-commerce_flag' => boolval($params['e-commerce_flag'] ?? false),
         ]);
