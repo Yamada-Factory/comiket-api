@@ -56,7 +56,6 @@ class CircleRepository
             });
         }
 
-
         if (!empty($params['ids']) && is_array($params['ids'])) {
             $query->whereIn('id', $params['ids']);
         }
