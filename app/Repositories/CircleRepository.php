@@ -50,6 +50,12 @@ class CircleRepository
             $query->where('circle_ms_id', '=', $params['circle_ms_id']);
         }
 
+        if (!empty($params['links'])) {
+            $query->whereHas('links', function (Builder $query) use ($params) {
+                $query->where('circle_link.url', '=', $params['links']);
+            });
+        }
+
         if (!empty($params['ids']) && is_array($params['ids'])) {
             $query->whereIn('id', $params['ids']);
         }

@@ -49,6 +49,26 @@ class EventCircleRepository
             $query->where('id', '=', $params['circle_id']);
         }
 
+        if (!empty($params['hall'])) {
+            $query->where('hall', '=', $params['hall']);
+        }
+
+        if (!empty($params['day'])) {
+            $query->where('day', '=', $params['day']);
+        }
+
+        if (!empty($params['block'])) {
+            $query->where('block', '=', $params['block']);
+        }
+
+        if (!empty($params['space'])) {
+            $query->where('space', '=', $params['space']);
+        }
+
+        if (!empty($params['genre'])) {
+            $query->where('genre', '=', $params['genre']);
+        }
+
         $page = !empty($params['page']) ? (int)$params['page'] : 1;
         $limit = !empty($params['limit']) ? (int)$params['limit'] : self::DEFAULT_LIMIT;
 
