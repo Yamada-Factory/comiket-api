@@ -41,6 +41,10 @@ class EventCircleGetController extends Controller
         $params['event_id'] = $event->id;
 
         $eventCircles = $this->eventCircleRepository->getByEventId($params);
+        if ($eventCircles->isEmpty()) {
+            return $this->success([]);
+        }
+
         foreach ($eventCircles as $circle) {
             $circleIds[] = $circle['circle_id'];
         }
