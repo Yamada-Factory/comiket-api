@@ -13,6 +13,8 @@ use App\Http\Controllers\Api\V1\Circle\CircleDeleteController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetListController;
 use App\Http\Controllers\Api\V1\Event\EventCircleCreateController;
+use App\Http\Controllers\Api\V1\Event\EventCircleGenreGetController;
+use App\Http\Controllers\Api\V1\Event\EventCircleGenreOptionsController;
 use App\Http\Controllers\Api\V1\Event\EventCircleGetController;
 use App\Http\Controllers\Api\V1\Event\EventCircleUpdateController;
 use App\Http\Controllers\Api\V1\Event\EventCreateController;
@@ -86,6 +88,7 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
 
     Route::group(['prefix' => '/event', 'as' => 'event.'], function (){
         Route::get('', EventGetListController::class)->name('list');
+        Route::get('/options', EventCircleGenreOptionsController::class)->name('genre');
         Route::get('/{id}', EventGetController::class)->name('get');
         Route::get('/{id}/circle', EventCircleGetController::class)->name('circle.get');
     });

@@ -87,6 +87,11 @@ class EventCircleRepository
         return $this->search($params)->get();
     }
 
+    public function getDistinctByColumn(string $column, array $params = []): ?Collection
+    {
+        return $this->search($params)->distinct()->select($column)->get();
+    }
+
     /**
      * 保存
      *
