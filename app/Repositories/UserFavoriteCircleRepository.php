@@ -44,6 +44,11 @@ class UserFavoriteCircleRepository
         if (!empty($params['user_id'])) {
             $query->where('user_id', '=', $params['user_id']);
         }
+
+        if (!empty($params['color'])) {
+            $query->where('color', '=', $params['color']);
+        }
+
         $page = !empty($params['page']) ? (int)$params['page'] : 1;
         $limit = !empty($params['limit']) ? (int)$params['limit'] : self::DEFAULT_LIMIT;
 
