@@ -53,7 +53,7 @@ class TwitterOauthController extends Controller
         $access_token = $twitter->oauth('oauth/access_token', $params);
         $userConnection = new TwitterOAuth($this->key, $this->secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 
-        $$userInfo = $userConnection->get('account/verify_credentials');
+        $userInfo = $userConnection->get('account/verify_credentials');
         $friendsList = $userConnection->get('friends/list');
 
         return array_merge($friendsList, $userInfo);
