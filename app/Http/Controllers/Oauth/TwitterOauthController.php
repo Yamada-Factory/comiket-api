@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Oauth;
+namespace App\Http\Controllers\Oauth;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Http\Controllers\Controller;
@@ -35,6 +35,7 @@ class TwitterOauthController extends Controller
         ];
 
         $this->requestToken = $twitter->oauth('oauth/request_token', $params);
+        $request->session()->put('request_token', $this->requestToken);
 
         return redirect('https://api.twitter.com/oauth/authorize?oauth_token=' . $this->requestToken["oauth_token"]);
     }
@@ -42,6 +43,8 @@ class TwitterOauthController extends Controller
     public function callback(Request $request)
     {
         $requestParams = $request->all();
+        $this->requestToken = $request->session()->get('request_token');
+
         $twitter = new TwitterOAuth($this->key, $this->secret, $requestParams['oauth_token'], $this->requestToken['oauth_secret']);
 
         $params = [

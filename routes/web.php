@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\V1\Auth\Oauth\TwitterOauthController;
+use App\Http\Controllers\Oauth\TwitterOauthController;
 use App\Http\Controllers\CircleController;
 use Illuminate\Support\Facades\Route;
 
