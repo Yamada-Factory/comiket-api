@@ -51,6 +51,12 @@ class EventCircleUpdateController extends Controller
             'circle_ms_id' => $params['circle_ms_id'],
         ]);
 
+        $links = $circle->getLinks();
+        $links->each(function($link) {
+            /** @var CircleLink $link */
+            $link->delete();
+        });
+
         $circleLinkModelArray = [];
         foreach ($params['links'] as $type => $url) {
             $circleLinkModelArray[] = new CircleLink([
