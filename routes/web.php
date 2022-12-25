@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Auth\Oauth\TwitterOauthController;
 use App\Http\Controllers\CircleController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +34,9 @@ Route::middleware([
             Route::get('/{id}', [CircleController::class, 'show'])->name('show');
         });
     });
+});
+
+Route::group(['prefix' => 'oauth/twitter', 'as' => 'oauth.twitter.'], function () {
+    Route::get('/login', [TwitterOauthController::class, 'login'])->name('login');
+    Route::get('/callback', [TwitterOauthController::class, 'callback'])->name('callback');
 });

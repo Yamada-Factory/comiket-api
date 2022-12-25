@@ -82,11 +82,6 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
         });
     });
 
-    Route::group(['prefix' => 'oauth/twitter', 'as' => 'oauth.twitter.'], function () {
-        Route::get('/login', [TwitterOauthController::class, 'login'])->name('login');
-        Route::get('/callback', [TwitterOauthController::class, 'callback'])->name('callback');
-    });
-
     Route::group(['prefix' => '/circle', 'as' => 'circle.'], function (){
         Route::get('', CircleGetListController::class)->name('list');
         Route::get('/{id}', CircleGetController::class)->name('get');
