@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'twitter' => [
+        'key' => env('TWITTER_ACCESS_KEY_ID'),
+        'secret' => env('TWITTER_SECRET_ACCESS_KEY'),
+        'callback_url' => env('TWITTER_CALLBACK_URL'),
+    ],
 ];

@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\V1\Event\EventCreateController;
 use App\Http\Controllers\Api\V1\Event\EventDeleteController;
 use App\Http\Controllers\Api\V1\Event\EventGetController;
 use App\Http\Controllers\Api\V1\Event\EventGetListController;
+use App\Http\Controllers\Api\V1\Oauth\TwitterOauthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -79,6 +80,11 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
                 });
             });
         });
+    });
+
+    Route::group(['prefix' => 'oauth/twitter', 'as' => 'oauth.twitter.'], function () {
+        Route::get('/login', [TwitterOauthController::class, 'login'])->name('login');
+        Route::get('/callback', [TwitterOauthController::class, 'callback'])->name('callback');
     });
 
     Route::group(['prefix' => '/circle', 'as' => 'circle.'], function (){
