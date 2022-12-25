@@ -20,7 +20,7 @@ class TwitterOauthController extends Controller
 
     public function __construct()
     {
-        $this->callbackUrl = config('app.url') . config('services.twitter.callback_url');
+        $this->callbackUrl = config('services.twitter.callback_url');
         $this->key = config('services.twitter.key');
         $this->secret = config('services.twitter.secret');
     }
