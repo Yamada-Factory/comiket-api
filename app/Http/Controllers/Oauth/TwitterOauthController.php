@@ -36,7 +36,7 @@ class TwitterOauthController extends Controller
 
         $requestToken = $twitter->oauth('oauth/request_token', $params);
 
-        return redirect('https://api.twitter.com/oauth/authorize?oauth_token=' . $requestToken['oauth_token'] . '&oauth_secret=' . $requestToken['oauth_secret']);
+        return redirect('https://api.twitter.com/oauth/authorize?oauth_token=' . $requestToken['oauth_token'] . '&oauth_secret=' . $requestToken['oauth_token_secret']);
     }
 
     public function callback(Request $request)
