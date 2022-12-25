@@ -55,9 +55,12 @@ class TwitterOauthController extends Controller
 
         $userInfo = $userConnection->get('account/verify_credentials');
         $friendsList = $userConnection->get('friends/list');
+        $friendsListArray = json_decode(json_encode($friendsList), true);
+        $friendsScreenNameList = [];
+        foreach ($friendsListArray['users'] as $friend) {
+            $friendsScreenNameList[] = $friend['screen_name'];
+        }
 
-
-
-        return array_merge(json_decode(json_encode($friendsList), true), json_decode(json_encode($userInfo), true));
+        return $friendsScreenNameList;
     }
 }
