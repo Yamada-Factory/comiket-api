@@ -27,8 +27,11 @@ class UserFavotiteEventCircleResource extends JsonResource
 
         $circleEvents = $events->map(function ($event) use ($request) {
             /** @var UserFavoriteEventCircle $event */
-            $eventInfo = (new EventResource($event->getEvent()))->toArray($request);
+            $eventModel = $event->getEvent();
+            $eventInfo = (new EventResource($eventModel))->toArray($request);
 
+            $circleModel = $event->circle()->getResults();
+            $eventInfo['info'] = $circleModel->evnetCircle()->where('event_id', '=', $eventModel->id)->first()->toArray();
             $eventInfo['priority'] = $event->priority;
             $eventInfo['e-commerce_flag'] = $event['e-commerce_flag'];
 

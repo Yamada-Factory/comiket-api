@@ -42,8 +42,6 @@ class UserFavotiteCircleResourceItem extends JsonResource
 
         $circle['event'] = $circleEvents->toArray();
 
-        return $circle;
-
         return array_merge($circle, $circleEvents->toArray()[0] ?? []);
     }
 }
