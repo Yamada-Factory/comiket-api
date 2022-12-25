@@ -54,13 +54,13 @@ class TwitterOauthController extends Controller
         $userConnection = new TwitterOAuth($this->key, $this->secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 
         $userInfo = $userConnection->get('account/verify_credentials');
-        $friendsList = $userConnection->get('friends/list');
+        $friendsList = $userConnection->get('friends/id');
         $friendsListArray = json_decode(json_encode($friendsList), true);
-        $friendsScreenNameList = [];
-        foreach ($friendsListArray['users'] as $friend) {
-            $friendsScreenNameList[] = $friend['screen_name'];
-        }
+        // $friendsScreenNameList = [];
+        // foreach ($friendsListArray['users'] as $friend) {
+        //     $friendsScreenNameList[] = $friend['screen_name'];
+        // }
 
-        return $friendsScreenNameList;
+        return $friendsListArray;
     }
 }
