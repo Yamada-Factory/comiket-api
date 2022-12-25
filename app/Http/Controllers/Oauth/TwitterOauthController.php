@@ -16,7 +16,6 @@ class TwitterOauthController extends Controller
 
     private $secret;
 
-    private $requestToken;
 
     public function __construct()
     {
@@ -34,8 +33,8 @@ class TwitterOauthController extends Controller
             "x_auth_access_type" => "read"
         ];
 
-        $this->requestToken = $twitter->oauth('oauth/request_token', $params);
-        session()->flash('request_token', $this->requestToken);
+        $requestToken = $twitter->oauth('oauth/request_token', $params);
+        session()->flash('request_token', $requestToken);
         session()->reflash();
 
         return redirect('https://api.twitter.com/oauth/authorize?oauth_token=' . $this->requestToken["oauth_token"]);
@@ -48,9 +47,9 @@ class TwitterOauthController extends Controller
             return redirect()->route('oauth.twitter.login');
         }
 
-        $this->requestToken = session()->get('request_token');
+        $requestToken = session()->get('request_token');
 
-        $twitter = new TwitterOAuth($this->key, $this->secret, $requestParams['oauth_token'], $this->requestToken['oauth_secret']);
+        $twitter = new TwitterOAuth($this->key, $this->secret, $requestParams['oauth_token'], $requestToken['oauth_secret']);
 
         $params = [
             'oauth_verifier' => $requestParams['oauth_verifier'],
