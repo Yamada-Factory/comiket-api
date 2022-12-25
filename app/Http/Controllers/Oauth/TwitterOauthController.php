@@ -52,6 +52,8 @@ class TwitterOauthController extends Controller
         ];
         $access_token = $twitter->oauth('oauth/access_token', $params);
 
+        return $twitter->get('friends/ids');
+
         return array_merge($access_token, $request->all());
     }
 }
