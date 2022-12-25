@@ -43,6 +43,10 @@ class TwitterOauthController extends Controller
     public function callback(Request $request)
     {
         $requestParams = $request->all();
+        if ($request->session()->has('request_token')) {
+            return route('oauth.twitter.login');
+        }
+
         $this->requestToken = $request->session()->get('request_token');
 
         $twitter = new TwitterOAuth($this->key, $this->secret, $requestParams['oauth_token'], $this->requestToken['oauth_secret']);
