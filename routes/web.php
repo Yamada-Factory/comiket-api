@@ -36,7 +36,11 @@ Route::middleware([
     });
 });
 
-Route::group(['prefix' => 'oauth/twitter', 'as' => 'oauth.twitter.'], function () {
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(['prefix' => 'oauth/twitter', 'as' => 'oauth.twitter.'], function () {
     Route::get('/login', [TwitterOauthController::class, 'login'])->name('login');
     Route::get('/callback', [TwitterOauthController::class, 'callback'])->name('callback');
 });
