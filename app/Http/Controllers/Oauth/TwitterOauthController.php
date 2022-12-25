@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Oauth;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class TwitterOauthController extends Controller
 {
@@ -34,8 +35,8 @@ class TwitterOauthController extends Controller
         ];
 
         $requestToken = $twitter->oauth('oauth/request_token', $params);
-        session()->flash('request_token', $requestToken);
-        session()->reflash();
+        Session::put('request_token', $requestToken);
+        Session::save();
 
         return redirect('https://api.twitter.com/oauth/authorize?oauth_token=' . $requestToken['oauth_token']);
     }
@@ -43,11 +44,11 @@ class TwitterOauthController extends Controller
     public function callback(Request $request)
     {
         $requestParams = $request->all();
-        if (session()->has('request_token')) {
+        if (Session::has('request_token')) {
             return redirect()->route('oauth.twitter.login');
         }
 
-        $requestToken = session()->get('request_token');
+        $requestToken = Session::pull('request_token');
 
         $twitter = new TwitterOAuth($this->key, $this->secret, $requestParams['oauth_token'], $requestToken['oauth_secret']);
 
