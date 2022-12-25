@@ -44,7 +44,7 @@ class TwitterOauthController extends Controller
     {
         $requestParams = $request->all();
         if ($request->session()->has('request_token')) {
-            return route('oauth.twitter.login');
+            return redirect()->route('oauth.twitter.login');
         }
 
         $this->requestToken = $request->session()->get('request_token');
