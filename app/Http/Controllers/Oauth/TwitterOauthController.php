@@ -35,7 +35,8 @@ class TwitterOauthController extends Controller
         ];
 
         $this->requestToken = $twitter->oauth('oauth/request_token', $params);
-        session()->put('request_token', $this->requestToken);
+        session()->flash('request_token', $this->requestToken);
+        session()->reflash();
 
         return redirect('https://api.twitter.com/oauth/authorize?oauth_token=' . $this->requestToken["oauth_token"]);
     }
