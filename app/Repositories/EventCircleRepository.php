@@ -89,7 +89,8 @@ class EventCircleRepository
 
     public function getDistinctByColumn(string $column, array $params = []): ?Collection
     {
-        return $this->search($params)->distinct()->select($column)->get();
+        $params['limit'] = 9999999;
+        return $this->search($params)->orderBy($column, 'asc')->distinct()->select($column)->get();
     }
 
     /**
