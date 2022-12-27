@@ -39,8 +39,8 @@ class UserFavoriteEventCircleRepository
             $query->where('id', '=', $params['id']);
         }
 
-        if (!empty($params['favotite_circle_id'])) {
-            $query->where('favotite_circle_id', '=', $params['favotite_circle_id']);
+        if (!empty($params['favorite_circle_id'])) {
+            $query->where('favorite_circle_id', '=', $params['favorite_circle_id']);
         }
 
         if (!empty($params['user_id'])) {
