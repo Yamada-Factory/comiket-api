@@ -76,7 +76,7 @@ class UserFavoriteCircleEventUpdateController extends Controller
 
         /** @var UserFavoriteEventCircle $userEventFavoriteCircle */
         $userEventFavoriteCircle = $this->userFavoriteEventCircleRepository->search([
-            'favorite_circle_id' => $userFavoriteCircle->circle_id,
+            'favorite_circle_id' => $userFavoriteCircle->id,
             'user_id' => $user->id,
             'event_id' => $id,
         ])->latest()->first();
