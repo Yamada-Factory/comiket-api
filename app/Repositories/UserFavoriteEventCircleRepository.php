@@ -51,6 +51,10 @@ class UserFavoriteEventCircleRepository
             $query->where('event_id', '=', $params['event_id']);
         }
 
+        if (!empty($params['e-commerce_flag'])) {
+            $query->where('e-commerce_flag', '=', (bool) $params['e-commerce_flag']);
+        }
+
         if (!empty($params['sort_by_priority'])) {
             $query->orderBy('priority', $params['sort_by_priority']);
         }
