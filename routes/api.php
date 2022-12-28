@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCircleEventCreateController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCircleEventGetController;
+use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCircleEventSearchController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCircleEventUpdateController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteCreateController;
 use App\Http\Controllers\Api\V1\Auth\User\UserFavoriteGetController;
@@ -13,7 +14,6 @@ use App\Http\Controllers\Api\V1\Circle\CircleDeleteController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetListController;
 use App\Http\Controllers\Api\V1\Event\EventCircleCreateController;
-use App\Http\Controllers\Api\V1\Event\EventCircleGenreGetController;
 use App\Http\Controllers\Api\V1\Event\EventCircleGenreOptionsController;
 use App\Http\Controllers\Api\V1\Event\EventCircleGetController;
 use App\Http\Controllers\Api\V1\Event\EventCircleUpdateController;
@@ -74,6 +74,7 @@ Route::group(['prefix' => 'v1', 'as' => 'v1.'], function () {
 
                 Route::group(['prefix' => '/event/{id}', 'as' => 'event.'], function () {
                     Route::get('', UserFavoriteCircleEventGetController::class)->name('index');
+                    Route::get('/search', UserFavoriteCircleEventSearchController::class)->name('search');
                     Route::post('', UserFavoriteCircleEventCreateController::class)->name('create');
                     Route::put('', UserFavoriteCircleEventUpdateController::class)->name('update');
                 });
