@@ -38,6 +38,18 @@ class UserFavotiteEventCircleResource extends JsonResource
             $eventInfo['comment'] = $event->comment;
             $eventInfo['price'] = $event->price ?? 0;
 
+            // アプリ側がobjectとstringの配列をパースできないため，アプリはオブジェクト削除
+            $params = $request->all();
+            if ($params['is_app'] ?? 0 === 1) {
+                $tmpImages = [];
+                foreach ($eventInfo['info']['images'] as $image) {
+                    if (is_string($image)) {
+                        $tmpImages[] = $image;
+                    }
+                }
+                $eventInfo['info']['images'] = $tmpImages;
+            }
+
             return $eventInfo;
         });
         $event = $circleEvents->toArray()[0] ?? [];
