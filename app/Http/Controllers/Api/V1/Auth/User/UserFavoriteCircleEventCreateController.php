@@ -88,6 +88,8 @@ class UserFavoriteCircleEventCreateController extends Controller
             'favorite_circle_id' => $userFavoriteCircle->id,
             'user_id' => $user->id,
             'priority' => $params['priority'] ?? 0,
+            'price' => intval($params['price'] ?? 0),
+            'comment' => $params['comment'] ?? '',
             'e-commerce_flag' => boolval($params['e-commerce_flag'] ?? false),
         ]);
 

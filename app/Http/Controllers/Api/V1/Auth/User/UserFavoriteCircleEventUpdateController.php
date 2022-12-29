@@ -88,6 +88,8 @@ class UserFavoriteCircleEventUpdateController extends Controller
             'favorite_circle_id' => $userFavoriteCircle->id,
             'priority' => $params['priority'] ?? 0,
             'e-commerce_flag' => boolval($params['e-commerce_flag'] ?? false),
+            'price' => intval($params['price'] ?? 0),
+            'comment' => $params['comment'] ?? '',
         ]);
 
         $userEventFavoriteCircle = $this->userFavoriteEventCircleRepository->save($userEventFavoriteCircle);

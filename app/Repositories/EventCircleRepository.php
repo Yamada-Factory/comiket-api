@@ -46,7 +46,7 @@ class EventCircleRepository
         }
 
         if (!empty($params['circle_id'])) {
-            $query->where('id', '=', $params['circle_id']);
+            $query->where('circle_id', '=', $params['circle_id']);
         }
 
         if (!empty($params['circle_ids']) && is_array($params['circle_ids'])) {

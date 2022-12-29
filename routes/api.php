@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\Circle\CircleDeleteController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetController;
 use App\Http\Controllers\Api\V1\Circle\CircleGetListController;
 use App\Http\Controllers\Api\V1\Event\EventCircleCreateController;
+use App\Http\Controllers\Api\V1\Event\EventCircleeMenuUpdatController;
 use App\Http\Controllers\Api\V1\Event\EventCircleGenreOptionsController;
 use App\Http\Controllers\Api\V1\Event\EventCircleGetController;
 use App\Http\Controllers\Api\V1\Event\EventCircleUpdateController;
@@ -56,6 +57,7 @@ Route::group(['prefix' => 'v1', 'as' => 'auth.', 'middleware' => ['auth:sanctum'
         Route::group(['as' => 'event.circle.'], function () {
             Route::post('/{id}/circle', EventCircleCreateController::class)->name('create');
             Route::put('/{id}/circle', EventCircleUpdateController::class)->name('update');
+            Route::put('/{id}/circle/{circle_id}/menu', EventCircleeMenuUpdatController::class)->name('updatemenu');
         });
     });
 });
