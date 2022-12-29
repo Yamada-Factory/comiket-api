@@ -16,6 +16,8 @@ class UserFavoriteEventCircle extends Model
     protected $fillable = [
         'user_id',
         'favorite_circle_id',
+        'price',
+        'comment',
         'event_id',
         'priority',
         'e-commerce_flag',

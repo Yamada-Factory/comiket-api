@@ -35,6 +35,8 @@ class UserFavotiteEventCircleResource extends JsonResource
             $eventInfo['info'] = $circleModel->evnetCircle()->where('event_id', '=', $eventModel->id)->first()->toArray();
             $eventInfo['priority'] = $event->priority;
             $eventInfo['e-commerce_flag'] = $event['e-commerce_flag'];
+            $eventInfo['comment'] = $event->comment;
+            $eventInfo['price'] = $event->price ?? 0;
 
             return $eventInfo;
         });

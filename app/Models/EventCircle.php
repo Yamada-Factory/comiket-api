@@ -23,6 +23,7 @@ class EventCircle extends Model
         'space',
         'genre',
         'description',
+        'menu',
         'images',
         'other',
     ];
